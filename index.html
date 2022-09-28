@@ -9,52 +9,57 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <style>
-    h1{
+    h1 {
         text-align: center;
         color: rgb(97, 18, 18);
         font-size: 55px;
     }
-    h3{
+
+    h3 {
         text-align: center;
         color: brown;
     }
-    form{
+
+    form {
         text-align: center;
         color: rgb(44, 10, 10);
         color: brown;
     }
-    body{
+
+    body {
         background-color: rgb(15, 15, 15);
     }
-    #cl{
-       margin-left: 50%;
-       display: inline-block;
-    }
-    button{
-        color:white;
-        background-color:rebeccapurple;
+
+    #cl {
+        margin-left: 50%;
+        display: inline-block;
     }
 
+    button {
+        color: white;
+        background-color: rebeccapurple;
+    }
 </style>
+
 <body>
     <h1>Todo App with server</h1> <br>
 
     <form onsubmit="postTodo(); return false">
-       Todo: <input id="todo" type="text" required>
+        Todo: <input id="todo" type="text" required>
         <button type="submit">Add</button><br>
-        
+
     </form>
     <button id="cl" onclick="getAllTodos()">Refresh</button>
 
-    <button onclick="getAllTodosDel()">Delete</button>
+    <button onclick="getDelete()">delete</button>
 
     <h3 id="result"> </h3>
 
     <script>
         function postTodo() {
             let todoText = document.querySelector("#todo").value
-
-            axios.post(`http://localhost:3000/todo`, {
+            let api = 'https://brown-hat.cyclic.app/'
+            axios.post(`${api}todo`, {
                 text: todoText
             })
                 .then(function (response) {
@@ -75,7 +80,7 @@
         }
 
         function getAllTodos() {
-            axios.get(`http://localhost:3000/todos`)
+            axios.get(`${api}todos`)
                 .then(function (response) {
                     console.log(response.data);
 
@@ -91,20 +96,15 @@
                     console.log(error);
                 })
         }
-        function getAllTodosDel() {
-            axios.get(`http://localhost:3000/del`)
-                .then(function (response) {
-                    console.log(response.data);
+        function getDelete() {
+            axios.delete(`${api}del`).then(function (response) {
+                document.querySelector("#result").innerHTML += ''
 
-                    document.querySelector("#result").innerHTML = ""
-
-                   
-
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+            }).catch((error) => {
+                console.log(error)
+            })
         }
+        getAllTodos();
 
         setInterval(getAllTodos, 1000);
 

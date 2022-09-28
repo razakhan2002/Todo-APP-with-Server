@@ -4,13 +4,19 @@ import cors from 'cors';
 const app = express()
 const port = process.env.PORT || 3000;
 
-let todos = [];
 
 app.use(express.json());
 app.use(cors())
+let todos = [];
 
-app.get('/del',(req,res)=>{
+
+app.delete('/del', (req, res) => {
     todos=[]
+    res.send({
+        message: "your todo is deleted",
+        data: todos
+    })
+    
 })
 
 app.post('/todo', (req, res) => {
@@ -29,18 +35,7 @@ app.get('/todos', (req, res) => {
         data: todos
     })
 })
-app.post('/water', (req, res) => {
-    console.log('someone is offering water');
-    res.send('ok I have received water')
-})
-app.get('/pizza', (req, res) => {
-    console.log('some one is asking for pizza');
-    res.send('here is your pizza')
-})
-app.get('/coffee', (req, res) => {
-    console.log('some one is asking for coffee');
-    res.send('here is your coffee')
-})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

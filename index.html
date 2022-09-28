@@ -56,9 +56,11 @@
     <h3 id="result"> </h3>
 
     <script>
+        let api = 'https://brown-hat.cyclic.app/'
+
+
         function postTodo() {
             let todoText = document.querySelector("#todo").value
-            let api = 'https://brown-hat.cyclic.app/'
             axios.post(`${api}todo`, {
                 text: todoText
             })
@@ -97,8 +99,9 @@
                 })
         }
         function getDelete() {
+            console.log("asdfas")
             axios.delete(`${api}del`).then(function (response) {
-                document.querySelector("#result").innerHTML += ''
+                document.querySelector("#result").innerHTML = ''
 
             }).catch((error) => {
                 console.log(error)
